@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кав'ярня Mafia - меню</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval'; img-src 'self' https: data:; media-src 'self' https:;">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+    <meta http-equiv="Cache-Control" content="public, max-age=31536000">
+    <meta http-equiv="Expires" content="31536000">
+    <meta name="description" content="Кав'ярня Mafia - затишне місце з найкращою кавою та смачними стравами">
+    <meta name="keywords" content="кав'ярня, кава, піца, суші, закуски, Mafia">
+    <meta name="theme-color" content="#1a1a1a">
+    <link rel="canonical" href="https://your-domain.com" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='images/favicon/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='images/favicon/favicon-16x16.png') }}">
+</head>
+<body>
+    <!-- Прелоадер -->
+    <div class="preloader" aria-hidden="true">
+        <div class="preloader-content">
+            <div class="preloader-icon"></div>
+            <div class="preloader-circle"></div>
+            <div class="preloader-text">Loading...</div>
+        </div>
+    </div>
+
+    <!-- Навігація -->
+    <nav class="navbar" aria-label="Головна навігація">
+        <div class="navbar-container">
+            <a href="#" class="logo" aria-label="Логотип Mafia"><span>Mafia</span></a>
+            
+            <ul class="nav-links">
+                <li style="--i:0"><a href="#home" aria-current="page">Головна</a></li>
+                <li style="--i:1"><a href="#menu">Меню</a></li>
+                <li style="--i:2"><a href="#contacts">Контакти</a></li>
+            </ul>
+
+            <a href="https://www.instagram.com/kava.mafiya/" target="_blank" rel="noopener" class="instagram-nav" aria-label="Наш Instagram">
+                <i class="fab fa-instagram" aria-hidden="true"></i>
+            </a>
+            
+            <button class="burger-menu" aria-label="Відкрити меню" aria-expanded="false" aria-controls="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Головний банер -->
+    <header class="hero" id="home">
+        <div class="hero-content">
+            <h1>Ласкаво просимо до нашої кав'ярні</h1>
+            <p>Відкрийте для себе неповторний смак справжньої кави</p>
+            <a href="#menu" class="cta-button">Дивитись меню</a>
+        </div>
+    </header>
+
+    <!-- Секція меню -->
+    <section class="menu-section" id="menu" aria-label="Меню">
+        <div class="menu-header">
+            <h2 class="menu-title"><span>Меню</span></h2>
+        </div>
+        
+        <div class="filters-container">
+            <div class="filters" role="tablist" aria-label="Фільтри меню">
+                <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">Все</button>
+                <button class="filter-btn" data-filter="pizza" role="tab" aria-selected="false">Піца</button>
+                <button class="filter-btn" data-filter="sushi" role="tab" aria-selected="false">Суші</button>
+                <button class="filter-btn" data-filter="snacks" role="tab" aria-selected="false">Закуски</button>
+                <button class="filter-btn" data-filter="salads" role="tab" aria-selected="false">Салати</button>
+                <button class="filter-btn" data-filter="burgers" role="tab" aria-selected="false">Бургери</button>
+            </div>
+        </div>
+
+        <div class="menu-grid" role="tabpanel">
+            {% for item in menu_items %}
+            <div class="menu-item" data-category="{{ item.category }}">
+                <div class="menu-item-image-container">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" 
+                         data-src="{{ url_for('static', filename=item.image) }}" 
+                         alt="{{ item.name }}"
+                         loading="lazy"
+                         class="lazy"
+                         width="300"
+                         height="200">
+                </div>
+                <div class="menu-item-content">
+                    <h3>{{ item.name }}</h3>
+                    <p>{{ item.description }}</p>
+                    <div class="menu-item-footer">
+                        <span class="price">{{ item.price }} ₴</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="footer" id="contacts">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <span>Mafia</span>
+            </div>
+            
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">Графік роботи</h3>
+                    <p class="footer-info">Щоденно: 8:30 - 21:00</p>
+                    <p class="footer-info">Кухня: 11:00 - 20:00</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Контакти</h3>
+                    <p class="footer-info">+380 (63) 513-28-61</p>
+                    <p class="footer-info">вул. Фабрична, 3</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/kava.mafiya/" target="_blank" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Оплата</h3>
+                    <p class="footer-info">Готівка</p>
+                    <p class="footer-info">Банківська карта</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Кав'ярня Mafia. Всі права захищені.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin/styles.css') }}">
+</head>
+<body class="admin-page">
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <h1>Панель управління меню</h1>
+            <a href="{{ url_for('admin_logout') }}" class="logout-btn">Вийти</a>
+        </header>
+
+        <div class="add-item-section">
+            <h2>Додати нову страву</h2>
+            <form id="addItemForm" class="item-form" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="text" id="newItemName" name="name" placeholder="Назва страви" required>
+                </div>
+                <div class="form-group">
+                    <textarea id="newItemDescription" name="description" placeholder="Опис страви" required></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="number" id="newItemPrice" name="price" placeholder="Ціна" required>
+                </div>
+                <div class="form-group">
+                    <select id="newItemCategory" name="category" required>
+                        <option value="">Оберіть категорію</option>
+                        <option value="pizza">Піца</option>
+                        <option value="sushi">Суші</option>
+                        <option value="snacks">Закуски</option>
+                        <option value="salads">Салати</option>
+                        <option value="burgers">Бургери</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="file" id="newItemImage" name="image" accept="image/*" required>
+                </div>
+                <button type="submit">Додати страву</button>
+            </form>
+        </div>
+
+        <div class="menu-items-section">
+            <h2>Існуючі страви</h2>
+            <div class="menu-items-grid">
+                {% for item in menu_items %}
+                <div class="menu-item" data-id="{{ item.id }}" data-category="{{ item.category }}">
+                    <img src="{{ url_for('static', filename=item.image) }}" alt="{{ item.name }}">
+                    <div class="item-details">
+                        <h3>{{ item.name }}</h3>
+                        <p>{{ item.description }}</p>
+                        <p class="price">{{ item.price }} ₴</p>
+                    </div>
+                    <div class="item-actions">
+                        <button class="edit-btn">Редагувати</button>
+                        <button class="delete-btn">Видалити</button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='admin/script.js') }}"></script>
+</body>
+</html> 
